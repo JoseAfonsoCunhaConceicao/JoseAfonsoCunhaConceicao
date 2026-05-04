@@ -1,7 +1,7 @@
-# Hi there 👋, I'm José Afonso Cunha
+# Hi there 👋, I'm José Conceição!
 
 <div align="left">
-  <p>I am an ambitious Computer Science and Engineering student at <a href="https://tecnico.ulisboa.pt/">Instituto Superior Técnico</a>, on a journey to blend algorithmic efficiency with the elegance of pure logic.</p>
+  <p>I am a Computer Science and Engineering student at <a href="https://tecnico.ulisboa.pt/">Instituto Superior Técnico</a>, on a journey to blend algorithmic efficiency with the elegance of pure logic.</p>
   <p>My programming philosophy is heavily influenced by my passions for <b>physics, mathematics, and philosophy</b>. Whether I'm tackling a complex problem or playing a game of chess, I believe in building structured, scalable, and thoughtful solutions.</p>
 </div>
 
@@ -17,10 +17,7 @@
 
 - 🔭 **I’m currently studying:** BSc in Computer Science and Engineering at IST.
 - ✍️ **I’m currently writing:** Chronicles and thoughts on my Instagram.
-- 🦅 **Fun fact:** I am a die-hard S.L. Benfica supporter and an avid chess player.
-- 📫 **How to reach me:**
-  [LinkedIn](https://www.linkedin.com/in/joseafonsocunha/) • [Instagram Chronicles](https://www.instagram.com/afonsoo_cunhaa/) • [TUMO Portfolio](https://tumo.pt/portfolio/jose-afonso-cunha/)
-
+- 🦅 **Fun fact:** I am a die-hard S.L. Benfica supporter and a chess player.
 #
 
 ### 📊 Estatísticas e Linguagens (Automático)
