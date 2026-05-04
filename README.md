@@ -48,7 +48,7 @@ I am a Computer Science and Engineering student at **Instituto Superior Técnico
   <a href="https://www.linkedin.com/in/jos%C3%A9-concei%C3%A7%C3%A3o-aa4322181/" target="_blank">
     <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn">
   </a>
-  <a href="https://www.instagram.com/joseafonsocunhaconceicao//" target="_blank">
+  <a href="https://www.instagram.com/joseafonsocunhaconceicao/" target="_blank">
     <img src="https://img.shields.io/badge/Instagram_Chronicles-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram">
   </a>
   <a href="https://portfolio.pt.tumo.world/p/7jovlzpn810e4m2q46d5e6mg2r3x54yw" target="_blank">
