@@ -13,14 +13,17 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           user: JoseAfonsoCunhaConceicao
           template: classic
-          # Retiramos metadata, community e repositories. Fica apenas o essencial:
-          base: header
-          # Foco total nas linguagens de programação:
+          
+          # O segredo está aqui: aspas vazias desativam o cabeçalho com nome e avatar
+          base: "" 
+          
+          # Foco exclusivo no plugin de linguagens
           plugin_languages: yes
           plugin_languages_categories: programming
           plugin_languages_colors: github
           plugin_languages_limit: 5
           plugin_languages_details: percentage
-          # Ignorar código de forks (para mostrar apenas código escrito por ti)
+          
+          # Ignorar código de forks
           repositories_forks: no
           config_timezone: Europe/Lisbon
