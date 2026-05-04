@@ -29,9 +29,9 @@
 
 #
 
-### 📊 Stats & Languages
+### 📊 Top Languages
 <p align="center">
-  <img src="https://raw.githubusercontent.com/JoseAfonsoCunhaConceicao/JoseAfonsoCunhaConceicao/main/github-metrics.svg" alt="GitHub Metrics" width="800">
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=JoseAfonsoCunhaConceicao&layout=compact&hide_border=true&hide_title=true&hide=javascript&theme=radical" alt="Top Languages" width="600">
 </p>
 
 #
