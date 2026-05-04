@@ -8,7 +8,7 @@
 <details>
   <summary><b>🌍 Ler em Português</b></summary>
   <br>
-  Sou um estudante ambicioso de Engenharia Informática no <a href="https://tecnico.ulisboa.pt/">Instituto Superior Técnico</a>, numa jornada para unir a eficiência algorítmica à elegância da lógica pura.
+  Sou um estudante de Engenharia Informática e de Computadores no <a href="https://tecnico.ulisboa.pt/">Instituto Superior Técnico</a>, numa jornada para unir a eficiência algorítmica à elegância da lógica pura.
   <br><br>
   A minha filosofia de programação é fortemente influenciada pelas minhas paixões pela <b>física, matemática e filosofia</b>. Seja a resolver um problema complexo ou a jogar uma partida de xadrez, acredito na construção de soluções estruturadas, escaláveis e bem pensadas.
 </details>
