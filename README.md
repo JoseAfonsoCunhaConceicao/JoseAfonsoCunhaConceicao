@@ -27,8 +27,6 @@
   </ul>
 </details>
 
-#
-
 ### 📊 Top Languages
 <p align="center">
   <img src="https://raw.githubusercontent.com/JoseAfonsoCunhaConceicao/JoseAfonsoCunhaConceicao/main/github-metrics.svg" alt="GitHub Metrics" width="800">
