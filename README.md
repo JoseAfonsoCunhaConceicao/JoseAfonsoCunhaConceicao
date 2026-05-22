@@ -9,7 +9,7 @@
 
 - 🔭 **I’m currently studying:** BSc in Computer Science and Engineering at IST.
 - ✍️ **I’m currently writing:** Chronicles and thoughts on my Instagram.
-- 🦅 **Fun fact:** I am a die-hard S.L. Benfica supporter and a chess player.
+- 🦅 **Fun fact:** I am a die-hard S.L. Benfica supporter.
 
 <br>
 
@@ -23,7 +23,7 @@
   <ul>
     <li>🔭 <b>Estudo atualmente:</b> Licenciatura em Engenharia Informática e de Computadores no IST.</li>
     <li>✍️ <b>Escrevo atualmente:</b> Crónicas e pensamentos no meu Instagram.</li>
-    <li>🦅 <b>Curiosidade:</b> Sou um benfiquista ferrenho e jogador de xadrez.</li>
+    <li>🦅 <b>Curiosidade:</b> Sou um benfiquista ferrenho.</li>
   </ul>
 </details>
 
