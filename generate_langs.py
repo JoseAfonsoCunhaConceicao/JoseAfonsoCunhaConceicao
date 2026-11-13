@@ -60,6 +60,7 @@ def is_valid_file(filepath):
 def get_combined_stats():
     lang_bytes = defaultdict(int)
     owned_repos = set()
+    seen_shas = set()
 
     # 1. Repositórios públicos próprios (não forks)
     repos_url = f"https://api.github.com/users/{USERNAME}/repos?type=owner&per_page=100"
@@ -75,13 +76,21 @@ def get_combined_stats():
             if repo.get("fork"):
                 continue
 
+            # Regista os SHAs dos teus commits neste repositório para evitar duplicados em cópias de colegas
+            commits_url = f"https://api.github.com/repos/{full_name}/commits?author={USERNAME}&per_page=100"
+            repo_commits = requests.get(commits_url, headers=HEADERS).json()
+            if isinstance(repo_commits, list):
+                for c in repo_commits:
+                    if "sha" in c:
+                        seen_shas.add(c["sha"])
+
             repo_langs = requests.get(repo["languages_url"], headers=HEADERS).json()
             if isinstance(repo_langs, dict):
                 for lang, bytes_count in repo_langs.items():
                     if lang in LANG_COLORS:
                         lang_bytes[lang] += bytes_count
 
-    # 2. Commits públicos em repositórios externos (organizações, forks, terceiros)
+    # 2. Commits públicos em repositórios externos (organizações, projetos de grupo, terceiros)
     search_headers = HEADERS.copy()
     search_headers["Accept"] = "application/vnd.github.cloak-preview+json"
 
@@ -93,11 +102,18 @@ def get_combined_stats():
             break
 
         for item in items:
-            repo_info = item.get("repository", {})
-            if repo_info.get("private", True):
+            sha = item.get("sha")
+            # Ignora se este commit exato já foi contabilizado num repositório teu (cópia/clone de colega)
+            if not sha or sha in seen_shas:
                 continue
+            seen_shas.add(sha)
+
+            repo_info = item.get("repository", {})
+            if repo_info.get("private", True) or repo_info.get("fork", False):
+                continue
+
             repo_full_name = repo_info.get("full_name")
-            if repo_full_name in owned_repos and not repo_info.get("fork"):
+            if repo_full_name in owned_repos:
                 continue
 
             detail = requests.get(item.get("url"), headers=HEADERS).json()
