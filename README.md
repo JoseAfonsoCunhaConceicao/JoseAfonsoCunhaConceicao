@@ -18,8 +18,6 @@ I focus on software engineering, low-code platforms, and writing optimized, pred
 
 ---
 
-## Contact Me
-
 <div align="center">
   <a href="https://www.linkedin.com/in/jose-afonso-cunha-conceicao/">
     <img src="https://img.shields.io/badge/LinkedIn-161b22?style=for-the-badge&logo=linkedin&logoColor=e6edf3" alt="LinkedIn" />
