@@ -10,7 +10,6 @@ HEADERS = {
     "Accept": "application/vnd.github.v3+json"
 } if TOKEN else {"Accept": "application/vnd.github.v3+json"}
 
-# Cores oficiais do GitHub
 LANG_COLORS = {
     "Rust": "#dea584",
     "C": "#555555",
@@ -26,7 +25,6 @@ LANG_COLORS = {
     "CSS": "#563d7c",
     "Shell": "#89e051",
     "SQL": "#e38c00",
-    "Makefile": "#427819",
 }
 
 EXT_MAP = {
@@ -48,14 +46,14 @@ EXT_MAP = {
 
 IGNORED_PATHS = (
     "node_modules/", "target/", "dist/", "build/", "vendor/",
-    ".next/", "out/", "coverage/", "__pycache__/"
+    ".next/", "out/", "coverage/", "__pycache__/", "bin/", "obj/", "debug/", "release/"
 )
 
 def is_valid_file(filepath):
     path_lower = filepath.lower()
     if any(ignored in path_lower for ignored in IGNORED_PATHS):
         return False
-    if path_lower.endswith((".min.js", ".min.css", ".lock", "-lock.json")):
+    if path_lower.endswith((".min.js", ".min.css", ".lock", "-lock.json", ".o", ".out")):
         return False
     return True
 
@@ -63,7 +61,7 @@ def get_combined_stats():
     lang_bytes = defaultdict(int)
     owned_repos = set()
 
-    # 1. Tudo o que está nos teus repositórios públicos próprios (já ignora vendored/node_modules)
+    # 1. Repositórios públicos próprios (não forks)
     repos_url = f"https://api.github.com/users/{USERNAME}/repos?type=owner&per_page=100"
     repos = requests.get(repos_url, headers=HEADERS).json()
 
@@ -74,22 +72,20 @@ def get_combined_stats():
             full_name = repo["full_name"]
             owned_repos.add(full_name)
 
-            # Se for fork, não conta o código base do fork (só os teus commits no passo 2)
             if repo.get("fork"):
                 continue
 
-            langs_url = repo["languages_url"]
-            repo_langs = requests.get(langs_url, headers=HEADERS).json()
+            repo_langs = requests.get(repo["languages_url"], headers=HEADERS).json()
             if isinstance(repo_langs, dict):
                 for lang, bytes_count in repo_langs.items():
                     if lang in LANG_COLORS:
                         lang_bytes[lang] += bytes_count
 
-    # 2. Todos os commits públicos feitos por ti em repositórios que NÃO são teus (orgs, forks, terceiros)
+    # 2. Commits públicos em repositórios externos (organizações, forks, terceiros)
     search_headers = HEADERS.copy()
     search_headers["Accept"] = "application/vnd.github.cloak-preview+json"
 
-    for page in range(1, 4): # Até 300 commits externos mais recentes
+    for page in range(1, 4):
         search_url = f"https://api.github.com/search/commits?q=author:{USERNAME}&sort=author-date&order=desc&per_page=100&page={page}"
         res = requests.get(search_url, headers=search_headers).json()
         items = res.get("items", [])
@@ -98,15 +94,13 @@ def get_combined_stats():
 
         for item in items:
             repo_info = item.get("repository", {})
-            # Ignora repositórios privados e repositórios próprios (já contados no passo 1)
             if repo_info.get("private", True):
                 continue
             repo_full_name = repo_info.get("full_name")
             if repo_full_name in owned_repos and not repo_info.get("fork"):
                 continue
 
-            commit_url = item.get("url")
-            detail = requests.get(commit_url, headers=HEADERS).json()
+            detail = requests.get(item.get("url"), headers=HEADERS).json()
             for file in detail.get("files", []):
                 filename = file.get("filename", "")
                 if not is_valid_file(filename):
@@ -114,12 +108,11 @@ def get_combined_stats():
                 _, ext = os.path.splitext(filename.lower())
                 if ext in EXT_MAP:
                     lang = EXT_MAP[ext]
-                    # Estima peso em bytes (~40 bytes por linha alterada) para equilibrar com a métrica do passo 1
-                    lines = file.get("additions", 0) + file.get("changes", 0)
-                    if lines > 0:
-                        lang_bytes[lang] += lines * 40
+                    added_lines = file.get("additions", 0)
+                    if added_lines > 0:
+                        lang_bytes[lang] += added_lines * 25
 
-        time.sleep(1) # Evita rate-limit da API de pesquisa
+        time.sleep(1)
 
     total = sum(lang_bytes.values())
     if total == 0:
