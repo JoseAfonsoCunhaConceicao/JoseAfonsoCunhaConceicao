@@ -1,49 +1,34 @@
-name: Languages by Commits
+name: Update Public Commit Languages
 on:
   schedule:
     - cron: "0 0 * * *"
   workflow_dispatch:
 
 jobs:
-  github-metrics:
+  build:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      # Dark Mode
-      - uses: lowlighter/metrics@latest
-        with:
-          filename: metrics.plugin.languages.dark.svg
-          token: ${{ secrets.METRICS_TOKEN }}
-          base: ""
-          plugin_languages: yes
-          plugin_languages_analysis_timeout: 60
-          plugin_languages_categories: markup, programming
-          plugin_languages_colors: github
-          plugin_languages_limit: 8
-          plugin_languages_sections: most-used
-          plugin_languages_indepth: yes
-          plugin_languages_details: percentage
-          config_display: columns
-          config_output: svg
-          base_indepth: yes
-          config_theme: dark
+      - uses: actions/checkout@v4
 
-      # Light Mode
-      - uses: lowlighter/metrics@latest
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          filename: metrics.plugin.languages.light.svg
-          token: ${{ secrets.METRICS_TOKEN }}
-          base: ""
-          plugin_languages: yes
-          plugin_languages_analysis_timeout: 60
-          plugin_languages_categories: markup, programming
-          plugin_languages_colors: github
-          plugin_languages_limit: 8
-          plugin_languages_sections: most-used
-          plugin_languages_indepth: yes
-          plugin_languages_details: percentage
-          config_display: columns
-          config_output: svg
-          base_indepth: yes
-          config_theme: light
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Generate SVG charts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python generate_langs.py
+
+      - name: Commit updated SVGs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add langs-dark.svg langs-light.svg
+          git commit -m "Update public commit language stats" || exit 0
+          git push
