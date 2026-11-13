@@ -1,4 +1,4 @@
-### [José Conceição]
+### José Conceição
 
 Computer Science & Engineering student.
 
